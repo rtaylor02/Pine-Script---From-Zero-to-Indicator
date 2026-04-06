@@ -157,7 +157,7 @@ barcolor(barColor)
 
 ```pine
 //@version=5
-indicator("Series Demo", overlay=true)
+indicator("Series Demo", overlay=false)
 
 // close     = close price of the CURRENT bar  (same as close[0])
 // close[1]  = close price of the PREVIOUS bar
@@ -201,6 +201,12 @@ indicator("Bar State Demo", overlay=false)
 // Draw a label on the first bar
 if barstate.isfirst
     label.new(bar_index, 0, "Start", style=label.style_label_right)
+
+// Draw a label on the last bar
+if barstate.islast
+    label.new(bar_index, bar_index, str.format("End: {0}", bar_index), style=label.style_label_left)
+    // ALTERNATIVE: use string concatenation: "End: " + str.tostring(bar_index)
+    // label.new(bar_index, bar_index, "End: " + str.tostring(bar_index), style=label.style_label_left)
 
 // Plot bar index as a line (useful for debugging)
 plot(bar_index, title="Bar Index")
